@@ -20,7 +20,7 @@ import pickle
 import numpy as np
 
 # Load the pickle model
-with open('../car_price_prediction.model', 'rb') as model_file:
+with open('car_price_prediction.model', 'rb') as model_file:
     model = pickle.load(model_file)
 
 def predict_output(year, transmission, engine, max_power):
