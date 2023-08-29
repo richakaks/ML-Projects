@@ -1,0 +1,12 @@
+version: '3'
+services:
+  streamlit-app:
+    image: ubuntu:latest
+    volumes:
+      - type: bind
+        source: . 
+        target: /app
+    command: /bin/bash -c "apt-get update && apt-get install -y python3-pip && pip3 install streamlit"
+    ports:
+      - "8501:8501"
+    working_dir: /app
