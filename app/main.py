@@ -18,16 +18,23 @@
 import streamlit as st
 import pickle
 import numpy as np
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
 
 # Load the pickle model
 with open('car_price_prediction.model', 'rb') as model_file:
     model = pickle.load(model_file)
 
+
+X_train = pd.read_csv("X_train.csv")
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+
+
 def predict_output(year, transmission, engine, max_power):
-    # Process the inputs and make predictions using the loaded model
-    # You need to modify this part based on your actual model's requirements
-    input_data = [float(year), 0 if transmission == 'Automatic' else 1, float(engine), float(max_power)]
-    output = model.predict([input_data])
+    input_data = [[float(year), 0 if transmission == 'Automatic' else 1, float(engine), float(max_power)]]
+    input_data = scaler.transform(input_data)
+    output = model.predict(input_data)
     output = np.exp(output)
     return output
 
